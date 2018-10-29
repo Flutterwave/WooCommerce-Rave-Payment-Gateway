@@ -43,6 +43,7 @@
       $this->payment_method = $this->get_option( 'payment_method' );
       $this->country = $this->get_option( 'country' );
       $this->modal_logo = $this->get_option( 'modal_logo' );
+      $this->payment_plan = $this->get_option( 'payment_plan' );
 
       add_action( 'admin_notices', array( $this, 'admin_notices' ) );
       add_action( 'woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
@@ -128,15 +129,22 @@
             'NG' => esc_html_x( 'NG', 'country', 'flw-payments' ),
             'GH' => esc_html_x( 'GH', 'country', 'flw-payments' ),
             'KE' => esc_html_x( 'KE', 'country', 'flw-payments' ),
+            'ZA' => esc_html_x( 'ZA', 'country', 'flw-payments' ),
           ),
           'default'     => 'NG'
         ),
-        'modal_logo' => array(
-           'title'       => __( 'Modal Custom Logo', 'flw-payments' ),
+        'payment_plan' => array(
+           'title'       => __( 'Payment Plan ID', 'flw-payments' ),
            'type'        => 'text',
-           'description' => __( 'Optional - URL to your store\'s logo. Preferably a square image', 'flw-payments' ),
+           'description' => __( 'Optional - For recurring payment. Create/Get Payment Plan ID from your dashboard', 'flw-payments' ),
            'default'     => ''
-         )
+        ),
+        'modal_logo' => array(
+          'title'       => __( 'Modal Custom Logo', 'flw-payments' ),
+          'type'        => 'text',
+          'description' => __( 'Optional - URL to your store\'s logo. Preferably a square image', 'flw-payments' ),
+          'default'     => ''
+       )
 
       );
 
@@ -262,6 +270,23 @@
           if($this->modal_logo){
             $rave_m_logo = $this->modal_logo;
           }
+
+          //set the currency to route to their countries
+          switch ($order->get_order_currency()) {
+            case 'KES':
+              $this->country = 'KE';
+              break;
+            case 'GHS':
+              $this->country = 'GH';
+              break;
+            case 'ZAR':
+              $this->country = 'ZA';
+              break;
+            
+            default:
+              $this->country = 'NG';
+              break;
+          }
           
           // Make payment
           $payment
@@ -277,7 +302,7 @@
           ->setFirstname($order->billing_first_name)
           ->setLastname($order->billing_last_name)
           ->setPhoneNumber($order->billing_phone)
-          // ->setPayButtonText($postData['pay_button_text'])
+          ->setPaymentPlan($this->payment_plan)
           ->setRedirectUrl($redirectURL)
           // ->setMetaData(array('metaname' => 'SomeDataName', 'metavalue' => 'SomeValue')) // can be called multiple times. Uncomment this to add meta datas
           // ->setMetaData(array('metaname' => 'SomeOtherDataName', 'metavalue' => 'SomeOtherValue')) // can be called multiple times. Uncomment this to add meta datas
