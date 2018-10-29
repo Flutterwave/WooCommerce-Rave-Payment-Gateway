@@ -36,6 +36,7 @@ class Rave {
     protected $integrityHash;
     protected $payButtonText = 'Make Payment';
     protected $redirectUrl;
+    protected $paymentPlan;
     protected $meta = array();
     protected $env = 'staging';
     protected $transactionPrefix;
@@ -104,6 +105,7 @@ class Rave {
             "customer_phone" => $this->customerPhone,
             "pay_button_text" => $this->payButtonText,
             "redirect_url" => $this->redirectUrl,
+            "payment_plan" => $this->paymentPlan,
             "hosted_payment" => 1
         );
         
@@ -381,6 +383,25 @@ class Rave {
         return $this->redirectUrl;
     }
     
+    /**
+     * Sets the payment plan ID
+     * @param string $paymentPlan This is where you put your payment plan ID
+     * @return object
+     * */
+    function setPaymentPlan($paymentPlan){
+        $this->paymentPlan = $paymentPlan;
+        return $this;
+    }
+    
+    /**
+     * gets the payment plan ID
+     * @return string
+     * */
+    function getPaymentPlan(){
+        return $this->paymentPlan;
+    }
+    
+
     /**
      * Sets the transaction meta data. Can be called multiple time to set multiple meta data
      * @param array $meta This are the other information you will like to store with the transaction. It is a key => value array. eg. PNR for airlines, product colour or attributes. Example. array('name' => 'femi')
