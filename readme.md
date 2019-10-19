@@ -1,7 +1,7 @@
 # WooCommerce Rave Payment Gateway
 
  - **Contributors:** bosunolanrewaju, iolufemi
- - **Tags:** rave, woocommerce, payment gateway, bank account, credit card, debit card, nigeria, kenya, international, mastercard, visa
+ - **Tags:** rave, woocommerce, payment gateway, bank account, credit card, debit card, Nigeria, Kenya, international, Mastercard, visa
  - **Requires at least:** 4.4
  - **Tested up to:** 4.6
  - **Stable tag:** 1.0.0
@@ -92,7 +92,7 @@ To configure the plugin, go to __WooCommerce > Settings__ from the left menu, cl
 
 ### Suggestions / Contributions
 
-For issues and feature request, [click here](https://github.com/bosunolanrewaju/WooCommerce-Rave-Payment-Gateway/issues).
+For issues and feature requests, [click here](https://github.com/bosunolanrewaju/WooCommerce-Rave-Payment-Gateway/issues).
 To contribute, fork the repo, add your changes and modifications then create a pull request.
 
 
